@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import data from "./data.tsx";
+import Checkbox from "./components/Checkbox.tsx";
 
 export default function App(): JSX.Element {
   const [isChecked, setIsChecked] = useState<boolean[]>(
@@ -29,30 +30,20 @@ export default function App(): JSX.Element {
     setTotalPrice(total);
   };
 
+  const checkboxes: React.JSX.Element[] = data.map((item, index) => (
+    <Checkbox
+      key={index}
+      index={index}
+      {...item}
+      isChecked={isChecked}
+      handleChange={handleChange}
+    />
+  ));
+
   return (
     <main className='app'>
       <p>¿Qué quieres hacer?</p>
-      <ul className='products-list'>
-        {data.map(({ product, price }, index) => {
-          return (
-            <li key={index}>
-              <input
-                type='checkbox'
-                id={`product-${index}`}
-                name={product}
-                value={product}
-                checked={isChecked[index]}
-                onChange={() => {
-                  handleChange(index);
-                }}
-              />
-              <label htmlFor={`product-${index}`}>
-                {product} ({price} €)
-              </label>
-            </li>
-          );
-        })}
-      </ul>
+      <ul className='products-list'>{checkboxes}</ul>
       <p>Precio: {totalPrice} €</p>
     </main>
   );
