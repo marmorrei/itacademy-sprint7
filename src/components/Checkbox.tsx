@@ -1,12 +1,12 @@
 interface CheckboxProps {
-  handleChange: (index: number) => unknown;
-  key: number;
+  handleChange: (index: number) => void;
+  key: string;
   index: number;
   product: string;
   price: number;
   isChecked: boolean[];
 }
-export default function Checkbox(props: CheckboxProps) {
+export default function Checkbox(props: CheckboxProps): JSX.Element {
   return (
     <li key={props.index}>
       <input
