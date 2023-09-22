@@ -7,20 +7,15 @@ interface WebOptionsProps {
     numOfPages: number;
     numOfLanguages: number;
   };
-  handleChange: (updatedWebOptions: {
-    numOfPages: number;
-    numOfLanguages: number;
-  }) => void;
+  setWebOptions: React.Dispatch<
+    React.SetStateAction<{
+      numOfPages: number;
+      numOfLanguages: number;
+    }>
+  >;
 }
 
 export default function WebOptions(props: WebOptionsProps): JSX.Element {
-  const handleChangeOptions = (updatedWebOptions: {
-    numOfPages: number;
-    numOfLanguages: number;
-  }) => {
-    props.handleChange(updatedWebOptions);
-  };
-
   return (
     <StyledWebOptions className='web-options-list'>
       <li key={"numOfPages"}>
@@ -29,7 +24,8 @@ export default function WebOptions(props: WebOptionsProps): JSX.Element {
           id='numOfPages'
           name='numOfPages'
           value={props.webOptions.numOfPages}
-          handleChange={handleChangeOptions}
+          webOptions={props.webOptions}
+          setWebOptions={props.setWebOptions}
         />
       </li>
       <li key={"numOfLanguages"}>
@@ -38,7 +34,8 @@ export default function WebOptions(props: WebOptionsProps): JSX.Element {
           id='numOfLanguages'
           name='numOfLanguages'
           value={props.webOptions.numOfLanguages}
-          handleChange={handleChangeOptions}
+          webOptions={props.webOptions}
+          setWebOptions={props.setWebOptions}
         />
       </li>
     </StyledWebOptions>

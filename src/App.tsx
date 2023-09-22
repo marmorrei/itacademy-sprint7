@@ -1,4 +1,4 @@
-import { useState, useEffect, type SetStateAction } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import data from "./data.tsx";
 import Checkbox from "./components/Checkbox.tsx";
@@ -70,15 +70,6 @@ export default function App(): JSX.Element {
     });
   };
 
-  const handleChangeOptions = (
-    updatedWebOptions: SetStateAction<{
-      numOfPages: number;
-      numOfLanguages: number;
-    }>
-  ) => {
-    setWebOptions(updatedWebOptions);
-  };
-
   // Conditional rendering
   const checkboxes: React.JSX.Element[] = data.map((item, index) =>
     isChecked[0] && item.id === "web" ? (
@@ -93,7 +84,7 @@ export default function App(): JSX.Element {
         <WebOptions
           key={item.id + "-options-list"}
           webOptions={webOptions}
-          handleChange={handleChangeOptions}
+          setWebOptions={setWebOptions}
         />
       </ul>
     ) : (

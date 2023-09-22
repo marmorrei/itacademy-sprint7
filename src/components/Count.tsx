@@ -1,34 +1,27 @@
-import { useEffect, useState } from "react";
 import { StyledCount } from "./Style-components";
 
 interface CountProps {
   id: string;
   name: string;
   value: number;
-  handleChange: (updatedWebOptions: {
+  webOptions: {
     numOfPages: number;
     numOfLanguages: number;
-  }) => void;
+  };
+  setWebOptions: React.Dispatch<
+    React.SetStateAction<{
+      numOfPages: number;
+      numOfLanguages: number;
+    }>
+  >;
 }
 
 export default function Count(props: CountProps): JSX.Element {
-  const [updatedWebOptions, setUpdatedWebOptions] = useState<{
-    numOfPages: number;
-    numOfLanguages: number;
-  }>({
-    numOfPages: props.value,
-    numOfLanguages: props.value,
-  });
-
-  useEffect(() => {
-    props.handleChange(updatedWebOptions);
-  }, [updatedWebOptions]);
-
   const handleInput = (event: { target: { name: string; value: string } }) => {
     const updatedInput = parseInt(event.target.value);
-    setUpdatedWebOptions((prevUpdatedWebOptions) => {
+    props.setWebOptions((prevWebOptions) => {
       return {
-        ...prevUpdatedWebOptions,
+        ...prevWebOptions,
         [event.target.name]: updatedInput,
       };
     });
@@ -36,11 +29,11 @@ export default function Count(props: CountProps): JSX.Element {
 
   const add = () => {
     const { name } = props;
-    const propName = name as keyof typeof updatedWebOptions;
-    const updatedValue = updatedWebOptions[propName] + 1;
-    setUpdatedWebOptions((prevUpdatedWebOptions) => {
+    const propName = name as keyof typeof props.webOptions;
+    const updatedValue = props.webOptions[propName] + 1;
+    props.setWebOptions((prevWebOptions) => {
       return {
-        ...prevUpdatedWebOptions,
+        ...prevWebOptions,
         [props.name]: updatedValue,
       };
     });
@@ -48,12 +41,12 @@ export default function Count(props: CountProps): JSX.Element {
 
   const subtract = () => {
     const { name } = props;
-    const propName = name as keyof typeof updatedWebOptions;
-    const updatedValue = updatedWebOptions[propName] - 1;
+    const propName = name as keyof typeof props.webOptions;
+    const updatedValue = props.webOptions[propName] - 1;
     updatedValue >= 1 &&
-      setUpdatedWebOptions((prevUpdatedWebOptions) => {
+      props.setWebOptions((prevWebOptions) => {
         return {
-          ...prevUpdatedWebOptions,
+          ...prevWebOptions,
           [props.name]: updatedValue,
         };
       });
@@ -67,7 +60,7 @@ export default function Count(props: CountProps): JSX.Element {
         inputMode='numeric'
         id={props.id}
         name={props.name}
-        value={props.value}
+        value={props.webOptions[props.name as keyof typeof props.webOptions]}
         onChange={handleInput}
       />
       <button onClick={subtract}>-</button>
