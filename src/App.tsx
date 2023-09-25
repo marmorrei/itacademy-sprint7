@@ -44,6 +44,24 @@ export default function App(): JSX.Element {
     setTotalPrice(subtotals.subtotalProducts + subtotals.subtotalWebOptions);
   }, [webOptions, subtotals]);
 
+  // Save in localStorage
+
+  useEffect(() => {
+    localStorage.setItem("isChecked", JSON.stringify(isChecked));
+  }, [isChecked]);
+
+  useEffect(() => {
+    localStorage.setItem("webOptions", JSON.stringify(webOptions));
+  }, [webOptions]);
+
+  useEffect(() => {
+    localStorage.setItem("subtotals", JSON.stringify(subtotals));
+  }, [subtotals]);
+
+  useEffect(() => {
+    localStorage.setItem("totalPrice", JSON.stringify(totalPrice));
+  }, [totalPrice]);
+
   // Handling changes
   const handleChangeProduct = (position: number) => {
     const updatedIsChecked = isChecked.map((item: boolean, index: number) =>
