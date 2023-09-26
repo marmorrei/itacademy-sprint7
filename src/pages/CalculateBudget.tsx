@@ -7,26 +7,33 @@ import { StyledPage } from "./Style-pages.tsx";
 export default function CalculateBudget(): JSX.Element {
   // States
   const [isChecked, setIsChecked] = useState<boolean[]>(
-    new Array(data.length).fill(false)
+    JSON.parse(localStorage.getItem("isChecked")) ||
+      new Array(data.length).fill(false)
   );
 
   const [webOptions, setWebOptions] = useState<{
     numOfPages: number;
     numOfLanguages: number;
-  }>({
-    numOfPages: 1,
-    numOfLanguages: 1,
-  });
+  }>(
+    JSON.parse(localStorage.getItem("webOptions")) || {
+      numOfPages: 1,
+      numOfLanguages: 1,
+    }
+  );
 
   const [subtotals, setSubtotals] = useState<{
     subtotalProducts: number;
     subtotalWebOptions: number;
-  }>({
-    subtotalProducts: 0,
-    subtotalWebOptions: 0,
-  });
+  }>(
+    JSON.parse(localStorage.getItem("subtotals")) || {
+      subtotalProducts: 0,
+      subtotalWebOptions: 0,
+    }
+  );
 
-  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [totalPrice, setTotalPrice] = useState<number>(
+    JSON.parse(localStorage.getItem("totalPrice")) || 0
+  );
 
   // Side Effects
   useEffect(() => {
