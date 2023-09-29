@@ -32,6 +32,10 @@ module.exports = {
     "@typescript-eslint/quotes": "off",
     "@typescript-eslint/semi": "off",
     "@typescript-eslint/space-before-function-paren": "off",
+    "@typescript-eslint/comma-dangle": "off",
+    "@typescript-eslint/member-delimiter-style": "off",
+    "multiline-ternary": "off",
+    "@typescript-eslint/indent": "off",
   },
   ignorePatterns: ["**/.eslintrc.cjs"],
 };
